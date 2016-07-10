@@ -20,7 +20,7 @@
          MX_Master
 
     ВЕРСИЯ
-        0.5 от 20.09.2010
+        0.5.1 от 10.07.2016 (основано на 0.5 от 20.09.2010)
 
 
     ДОСТУПНЫЕ ИНСТРУМЕНТЫ
@@ -83,7 +83,10 @@
 
 
 
-
+#if defined _mxINI_included
+    #endinput
+#endif
+#define _mxINI_included
 
 
 
