@@ -256,7 +256,7 @@ stock ini_createFile ( szFilePath[], szDefaultContent[] = "" )
         {
             // ------------
             _ini_nSlotUsed[slot]        = 1; // застолбим найденное место
-            _ini_nFileChanged[slot]     = 1; // файл не был изменен
+            _ini_nFileChanged[slot]     = 0; // файл не был изменен
             _ini_nFileSize[slot]        = nFileSize; // скопируем размер файла в слот
             _ini_nKeysCount[slot]       = 0; // кол-во ключей выставим 0
             // ------------
