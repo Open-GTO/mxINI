@@ -392,16 +392,21 @@ stock ini_openFile ( szFilePath[] )
             // ------------
             // скопируем в ОЗУ весь файл,
             // запомнив все позиции INI_DELIMITER и их кол-во
-            for ( new i = 0, symbol; i < nFileSize && i < INI_MAX_FILE_SIZE; i++ )
+            for ( new i = 0, symbol, nextstr = 1; i < nFileSize && i < INI_MAX_FILE_SIZE; i++ )
             {
                 symbol = fgetchar( pFile, 0, false ); // читаем из файла следующий символ
 
+                if ( symbol == INI_STRING_DELIMITER ) // если начинается новая строка
+                    nextstr = 1;
+
                 if (
-                        symbol == INI_DELIMITER // если символ это INI_DELIMITER
+                        nextstr // если обрабатывается следующая строка
+                    &&  symbol == INI_DELIMITER // если символ это INI_DELIMITER
                     &&  _ini_nKeysCount[slot] < INI_MAX_KEYS_IN_FILE // и лимит ключей еще не исчерпан
                 ) {
                     _ini_nDelimPos[slot][ _ini_nKeysCount[slot] ] = i; // добавим еще одну позицию INI_DELIMITER
                     _ini_nKeysCount[slot]++; // увеличим кол-во найденных ключей
+                    nextstr = 0; // сбрасываем информацию о новой строке
                 }
 
                 _ini_szFileContent[slot]{i} = symbol;
@@ -2138,3 +2143,4 @@ stock ini_getErrorInfo ( nErrorCode )
 
     return error_ms;
 }
+
